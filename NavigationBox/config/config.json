@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "navigation-box-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/navigationBox/NavigationBoxWebPart.js",
+          "manifest": "./src/webparts/navigationBox/NavigationBoxWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "NavigationBoxWebPartStrings": "lib/webparts/navigationBox/loc/{locale}.js"
+  }
+}

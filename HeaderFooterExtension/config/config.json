@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "header-and-footer-application-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/headerAndFooter/HeaderAndFooterApplicationCustomizer.js",
+          "manifest": "./src/extensions/headerAndFooter/HeaderAndFooterApplicationCustomizer.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HeaderAndFooterApplicationCustomizerStrings": "lib/extensions/headerAndFooter/loc/{locale}.js"
+  }
+}

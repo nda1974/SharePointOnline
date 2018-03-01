@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "handbog-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/handbog/HandbogWebPart.js",
+          "manifest": "./src/webparts/handbog/HandbogWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HandbogWebPartStrings": "lib/webparts/handbog/loc/{locale}.js"
+  }
+}

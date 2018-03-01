@@ -1,0 +1,24 @@
+.app{
+    .header{
+        height:100px;
+        line-height:2.5;
+    }
+    .lbGrid{
+        height: 100px;
+        padding: 15px 15px 15px 15px;
+        background-color: white;
+    }
+    .lbColumns{
+        background-color: "[theme: themePrimary, default: #003262]";
+    }
+
+    .myDiv {
+        float:left;
+        width: 30%;
+        padding-bottom: 30%; /* = width for a 1:1 aspect ratio */
+        margin:1.66%;
+        background-color: #1E1E1E;
+    }
+    
+
+}

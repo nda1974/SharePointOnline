@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "bestil-vare-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/bestilVare/BestilVareWebPart.js",
+          "manifest": "./src/webparts/bestilVare/BestilVareWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "BestilVareWebPartStrings": "lib/webparts/bestilVare/loc/{locale}.js"
+  }
+}

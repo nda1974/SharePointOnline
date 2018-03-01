@@ -1,0 +1,11 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "manual-app-client-side-solution",
+    "id": "a91e44a0-12ca-43a0-a0d1-c939f8e5cc44",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/manual-app.sppkg"
+  }
+}

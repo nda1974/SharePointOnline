@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "branding-extension-client-side-solution",
+    "id": "05e2f1d2-6cfe-42a0-a159-85996620d255",
+    "version": "1.0.0.0",
+    "skipFeatureDeployment": true
+  },
+  "paths": {
+    "zippedPackage": "solution/branding-extension.sppkg"
+  }
+}

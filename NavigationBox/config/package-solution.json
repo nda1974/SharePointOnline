@@ -1,0 +1,11 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "navigation-box-client-side-solution",
+    "id": "db8868db-cc24-4fe2-8e43-b5bd04e728bc",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/navigation-box.sppkg"
+  }
+}
