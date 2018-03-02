@@ -4,6 +4,7 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
+  PropertyPaneChoiceGroup,
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
 import * as strings from 'HandbogWebPartStrings';
@@ -29,12 +30,7 @@ export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPar
     }
     );
 
-    // const element: React.ReactElement<IAppContainerProps> = React.createElement(
-    // AppContainer,
-    // {
-    //   description: this.properties.description
-    // }
-    // );
+    
 
     ReactDom.render(element, this.domElement);
 
@@ -58,6 +54,19 @@ export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPar
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                })
+              ]
+              
+            },
+            {
+              groupName: 'Håndbog',
+              groupFields: [
+                PropertyPaneChoiceGroup('color',{
+                  label:'Vælg håndbog',
+                  options:[{ key: 'Indbo', text: 'Indbo', checked: true }, 
+                       { key: 'Skade', text: 'Skade' }, 
+                       { key: 'Hund', text: 'Hund' } 
+                  ]
                 })
               ]
             }
