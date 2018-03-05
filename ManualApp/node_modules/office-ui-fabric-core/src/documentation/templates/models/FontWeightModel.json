@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "class": "ms-fontWeight-light",
+      "name": "Light"
+    },
+    {
+      "class": "ms-fontWeight-semilight",
+      "name": "Semilight"
+    },
+    {
+      "class": "ms-fontWeight-regular",
+      "name": "Regular"
+    },
+    {
+      "class": "ms-fontWeight-semibold",
+      "name": "Semi Bold"
+    }
+  ]
+}

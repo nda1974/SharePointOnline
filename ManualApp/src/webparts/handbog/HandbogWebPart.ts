@@ -15,6 +15,7 @@ import WebPartContext from '@microsoft/sp-webpart-base/lib/core/WebPartContext';
 //https://www.codeproject.com/Articles/1206669/SharePoint-Framework-aka-SPFx-Web-part-using-React
 export interface IHandbogWebPartProps {
   description: string;
+  manualType:string;
 }
 
 export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPartProps> {
@@ -26,6 +27,7 @@ export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPar
     AppContainer,
     {
       description: this.properties.description,
+      manualType:this.properties.manualType,
       webPartContext:this.context
     }
     );
@@ -61,7 +63,7 @@ export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPar
             {
               groupName: 'Håndbog',
               groupFields: [
-                PropertyPaneChoiceGroup('color',{
+                PropertyPaneChoiceGroup('manualType',{
                   label:'Vælg håndbog',
                   options:[{ key: 'Indbo', text: 'Indbo', checked: true }, 
                        { key: 'Skade', text: 'Skade' }, 

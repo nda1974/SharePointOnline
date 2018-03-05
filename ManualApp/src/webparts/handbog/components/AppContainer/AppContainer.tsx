@@ -63,7 +63,7 @@ export default class AppContainer extends React.Component<IAppContainerProps, IA
         public render(): React.ReactElement<IAppContainerProps> {
              let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
 
-            let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText,this.state.refinementFilters);
+            let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText,this.state.refinementFilters,this.props.manualType);
             // let searchResult:Promise<ISearchResults>=SPSearchService.search(this.state.queryText,this.state.refinementFilters);
             // searchResult.then(
             //     (data:any)=>{this.setState({results:data})}
