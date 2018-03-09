@@ -40,6 +40,11 @@ var moment = require("moment");
 var SPSearchService = (function () {
     function SPSearchService(webPartContext) {
         this._context = webPartContext;
+        //refinablestring00 = AnsvarCategory
+        //refinablestring01 = HundCategory
+        //refinablestring02 = BaadCategory
+        //refinablestring03 = BaadArea
+        //refinablestring04 = BilCategory
         // Setup the PnP JS instance
         var consoleListener = new sp_pnp_js_1.ConsoleListener();
         sp_pnp_js_1.Logger.subscribe(consoleListener);
@@ -56,19 +61,47 @@ var SPSearchService = (function () {
         });
     }
     // public static async search(queryText:string,refinementFilters:string[]):Promise<ISearchResults>{
-    SPSearchService.prototype.search = function (queryText, refinementFilters) {
+    SPSearchService.prototype.search = function (queryText, refinementFilters, manualType) {
         return __awaiter(this, void 0, void 0, function () {
-            var searchQuery, sortedRefiners, selectProperties, rf, r, allItemsPromises, refinementResults, results, r2, resultRows, refinementResultsRows, refinementRows, relevantResults;
+            var searchQuery, sortedRefiners, selectPropertyCategory, filterOnContentType, refinersMappedProerties, selectProperties, rf, r, allItemsPromises, refinementResults, results, r2, resultRows, refinementResultsRows, refinementRows, relevantResults;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log('manualType ' + manualType);
+                        if (manualType == 'undefined') {
+                            return [2 /*return*/];
+                        }
                         searchQuery = {};
                         sortedRefiners = [];
+                        selectPropertyCategory = "";
+                        filterOnContentType = "";
+                        refinersMappedProerties = "";
                         selectProperties = ['Title', 'Author', 'IndboCategory', 'Path', 'RefinableString02'];
+                        switch (manualType.toUpperCase()) {
+                            case "BAAD":
+                                selectProperties = ['Title', 'Author', 'BaadCategory', 'Path', 'RefinableString02'];
+                                filterOnContentType = "BaadManual";
+                                console.log(manualType.toUpperCase());
+                                break;
+                            case "BIL":
+                                selectProperties = ['Title', 'Author', 'BilCategory', 'Path', 'RefinableString04'];
+                                filterOnContentType = "BilManual";
+                                refinersMappedProerties = "refinablestring04";
+                                console.log(manualType.toUpperCase());
+                                break;
+                            case "HUND":
+                                console.log(manualType.toUpperCase());
+                                selectProperties = ['Title', 'Author', 'HundCategory', 'Path', 'RefinableString02'];
+                                filterOnContentType = "HundManual";
+                                break;
+                            default:
+                                break;
+                        }
                         rf = [];
                         if (refinementFilters.length == 1) {
                             searchQuery.Querytext = "ContentType:LB Manual AND " + queryText + " " + "LBManualCategory:'" + refinementFilters[0] + "'";
-                            searchQuery.Querytext = "ContentType:IndboManual AND " + queryText + " " + "IndboCategory:\"" + refinementFilters[0] + "\"";
+                            searchQuery.Querytext = "ContentType:" + filterOnContentType + " AND " + queryText + " " + "RefinableString04:'" + refinementFilters[0] + "'";
+                            //searchQuery.Querytext="ContentType:IndboManual AND " + queryText + " " +"IndboCategory:\"" + refinementFilters[0] + "\"";
                             // searchQuery.Querytext="ContentType:AnsvarManual AND " + queryText + " " +"AnsvarKategori:\"" + refinementFilters[0] + "\"";
                             // searchQuery.Querytext="ContentType:IndboManual AND " + queryText + " " + "IndboCategory=('Vilkårenes+afsnit+8.+Hærværk')";
                             // let myFilter:string[]=[];
@@ -78,7 +111,8 @@ var SPSearchService = (function () {
                         }
                         else {
                             searchQuery.Querytext = "ContentType:LB Manual AND " + queryText;
-                            searchQuery.Querytext = "ContentType:IndboManual AND " + queryText;
+                            searchQuery.Querytext = "ContentType:" + filterOnContentType + " AND " + queryText;
+                            //searchQuery.Querytext="ContentType:IndboManual AND " + queryText;    
                             // searchQuery.Querytext="ContentType:AnsvarManual AND " + queryText;    
                         }
                         // searchQuery.RefinementFilters=["LBManualCategory:equals('Diverse')"];
@@ -86,6 +120,7 @@ var SPSearchService = (function () {
                         // searchQuery.Querytext="ContentType:LB Manual AND " + queryText + " " +"LBManualCategory:'" + refinementFilters[0] + "'";
                         // searchQuery.Refiners="RefinableString01";
                         searchQuery.Refiners = "RefinableString02";
+                        searchQuery.Refiners = refinersMappedProerties;
                         return [4 /*yield*/, sp_pnp_js_1.default.sp.search(searchQuery)];
                     case 1:
                         r = _a.sent();

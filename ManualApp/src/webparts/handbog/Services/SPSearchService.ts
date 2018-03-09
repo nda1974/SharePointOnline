@@ -9,7 +9,16 @@ export default class SPSearchService{
 
     public constructor(webPartContext: IWebPartContext) {
         this._context = webPartContext;
-        
+
+        //refinablestring00 = AnsvarCategory
+        //refinablestring01 = HundCategory
+        //refinablestring02 = BaadCategory
+        //refinablestring03 = BaadArea
+        //refinablestring04 = BilCategory
+
+
+
+
         // Setup the PnP JS instance
         const consoleListener = new ConsoleListener();
         Logger.subscribe(consoleListener);
@@ -30,46 +39,80 @@ export default class SPSearchService{
 
 
     // public static async search(queryText:string,refinementFilters:string[]):Promise<ISearchResults>{
-        public async search(queryText:string,refinementFilters:string[]):Promise<ISearchResults>{
+        public async search(queryText:string,refinementFilters:string[],manualType:string):Promise<ISearchResults>{
             
+            
+            console.log('manualType '  +  manualType);
+            if (manualType== 'undefined') {
+                return;
+            }
+            
+
             let searchQuery: SearchQuery = {};
             let sortedRefiners: string[] = [];
             
+            let selectPropertyCategory:string = ""
+            let filterOnContentType:string="";
+            let refinersMappedProperties:string="";
+            let searchQueryQueryText:string="";
+
+
             let selectProperties:string[]=['Title','Author','IndboCategory','Path','RefinableString02'];
+
+
+            switch (manualType.toUpperCase()) {
+                case "BAAD":
+                    selectProperties=['Title','Author','BaadCategory','Path','RefinableString02','RefinableString02'];
+                    filterOnContentType = "BaadManual";
+                    refinersMappedProperties= "refinablestring02,refinablestring04";
+                    if (refinementFilters.length>0) {
+                        
+                        searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
+                        
+                    }else{
+                        searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
+                    }
+                    console.log(manualType.toUpperCase())
+                    break;
+                case "BIL":
+                    selectProperties=['Title','Author','BilCategory','Path','RefinableString04'];
+                    filterOnContentType = "BilManual";
+                    refinersMappedProperties= "refinablestring04";
+                    if (refinementFilters.length==1) {
+                        searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
+                    }else{
+                        searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
+                    }
+                    
+                    console.log(manualType.toUpperCase())
+                    break;
+                case "HUND":
+                console.log(manualType.toUpperCase())
+                    selectProperties=['Title','Author','HundCategory','Path','RefinableString02'];
+                    filterOnContentType = "HundManual";
+                    break;
+        
+                default:
+                    break;
+                    
+            }
             // let selectProperties:string[]=['Title','Author','AnsvarCategory','Path'];
             let rf:string[]=[];
             if (refinementFilters.length==1) {
                 searchQuery.Querytext="ContentType:LB Manual AND " + queryText + " " +"LBManualCategory:'" + refinementFilters[0] + "'";
-                searchQuery.Querytext="ContentType:IndboManual AND " + queryText + " " +"IndboCategory:\"" + refinementFilters[0] + "\"";
-                // searchQuery.Querytext="ContentType:AnsvarManual AND " + queryText + " " +"AnsvarKategori:\"" + refinementFilters[0] + "\"";
-                // searchQuery.Querytext="ContentType:IndboManual AND " + queryText + " " + "IndboCategory=('Vilkårenes+afsnit+8.+Hærværk')";
-                // let myFilter:string[]=[];
-                // myFilter.push("RefinableString02:equals('" + refinementFilters[0] + "')")
-                
-                // searchQuery.RefinementFilters=["IndboCategory:equals('Vilkårenes afsnit 8. Hærværk')"];
-                // searchQuery.RefinementFilters=["LBManualCategory:equals('" + refinementFilters[0] + "')"];
+                searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
+                searchQuery.Querytext=searchQueryQueryText;
             }
             else
             {
-                searchQuery.Querytext="ContentType:LB Manual AND " + queryText;    
-                searchQuery.Querytext="ContentType:IndboManual AND " + queryText;    
-                // searchQuery.Querytext="ContentType:AnsvarManual AND " + queryText;    
-                
+                searchQuery.Querytext="ContentType:LB Manual AND " + queryText;
+                searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText;    
             }
-            
-            // searchQuery.RefinementFilters=["LBManualCategory:equals('Diverse')"];
-            
             searchQuery.SelectProperties=selectProperties;
-            // searchQuery.Querytext="ContentType:LB Manual AND " + queryText + " " +"LBManualCategory:'" + refinementFilters[0] + "'";
-            // searchQuery.Refiners="RefinableString01";
-            searchQuery.Refiners="RefinableString02";
-            // searchQuery.Refiners="RefinableString00";
-            
+            searchQuery.Refiners=refinersMappedProperties;
             
             
             const r = await pnp.sp.search(searchQuery);
-
-
             
             const allItemsPromises: Promise<ISearchResult>[] = [];
             let refinementResults: IRefinementResult[] = [];

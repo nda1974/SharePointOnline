@@ -51,16 +51,14 @@ var AppContainer = (function (_super) {
             filters.push(newState);
             this.setState({ refinementFilters: filters });
         }
-        // if (newState.length>0) {
-        //     let filters:string[]=this.state.refinementFilters;
-        //     filters.push(newState);
-        //     this.setState({ refinementFilters: filters })        
-        // }
     };
     AppContainer.prototype.render = function () {
         var _this = this;
+        if (this.props.manualType == undefined) {
+            return (React.createElement("div", null, "Fisk"));
+        }
         var ss = new SPSearchService_1.default(this.props.webPartContext);
-        var searchResult = ss.search(this.state.queryText, this.state.refinementFilters);
+        var searchResult = ss.search(this.state.queryText, this.state.refinementFilters, this.props.manualType);
         // let searchResult:Promise<ISearchResults>=SPSearchService.search(this.state.queryText,this.state.refinementFilters);
         // searchResult.then(
         //     (data:any)=>{this.setState({results:data})}

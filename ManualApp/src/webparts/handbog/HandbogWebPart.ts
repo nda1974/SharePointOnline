@@ -65,8 +65,8 @@ export default class HandbogWebPart extends BaseClientSideWebPart<IHandbogWebPar
               groupFields: [
                 PropertyPaneChoiceGroup('manualType',{
                   label:'Vælg håndbog',
-                  options:[{ key: 'Indbo', text: 'Indbo', checked: true }, 
-                       { key: 'Skade', text: 'Skade' }, 
+                  options:[{ key: 'Baad', text: 'Båd', checked: true }, 
+                       { key: 'Bil', text: 'Bil' }, 
                        { key: 'Hund', text: 'Hund' } 
                   ]
                 })

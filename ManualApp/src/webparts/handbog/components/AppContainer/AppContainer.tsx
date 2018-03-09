@@ -49,11 +49,7 @@ export default class AppContainer extends React.Component<IAppContainerProps, IA
                         filters.push(newState)
                         this.setState({ refinementFilters: filters })        
                     }
-                    // if (newState.length>0) {
-                    //     let filters:string[]=this.state.refinementFilters;
-                    //     filters.push(newState);
-                    //     this.setState({ refinementFilters: filters })        
-                    // }
+                    
                 
                 
                 }
@@ -61,7 +57,14 @@ export default class AppContainer extends React.Component<IAppContainerProps, IA
               
     
         public render(): React.ReactElement<IAppContainerProps> {
-             let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
+            
+            if(this.props.manualType==undefined){
+                return(<div>Fisk</div>);
+            }
+
+            let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
+            
+                
 
             let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText,this.state.refinementFilters,this.props.manualType);
             // let searchResult:Promise<ISearchResults>=SPSearchService.search(this.state.queryText,this.state.refinementFilters);

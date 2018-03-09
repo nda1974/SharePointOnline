@@ -1936,7 +1936,8 @@
       },
       "sys": {
         "args": [
-          "serve"
+          "serve",
+          "--nobrowser"
         ],
         "newLine": "\r\n",
         "useCaseSensitiveFileNames": false,

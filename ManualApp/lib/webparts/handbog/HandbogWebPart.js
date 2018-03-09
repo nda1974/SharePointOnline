@@ -25,6 +25,7 @@ var HandbogWebPart = (function (_super) {
         // this.context.statusRenderer.displayLoadingIndicator(this.domElement, "Henter Håndbøger...");
         var element = React.createElement(AppContainer_1.default, {
             description: this.properties.description,
+            manualType: this.properties.manualType,
             webPartContext: this.context
         });
         ReactDom.render(element, this.domElement);
@@ -55,10 +56,10 @@ var HandbogWebPart = (function (_super) {
                         {
                             groupName: 'Håndbog',
                             groupFields: [
-                                sp_webpart_base_1.PropertyPaneChoiceGroup('color', {
+                                sp_webpart_base_1.PropertyPaneChoiceGroup('manualType', {
                                     label: 'Vælg håndbog',
-                                    options: [{ key: 'Indbo', text: 'Indbo', checked: true },
-                                        { key: 'Skade', text: 'Skade' },
+                                    options: [{ key: 'Baad', text: 'Båd', checked: true },
+                                        { key: 'Bil', text: 'Bil' },
                                         { key: 'Hund', text: 'Hund' }
                                     ]
                                 })
